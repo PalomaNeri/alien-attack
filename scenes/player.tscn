@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b45bmihox8yo2"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_0er46"]
+[ext_resource type="Texture2D" uid="uid://dmwhyalvrph1p" path="res://assets/textures/player_ship.png" id="1_skmvw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2nbl"]
+radius = 27.0
+height = 106.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_0er46")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_skmvw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_h2nbl")
+
+[node name="LaserContainer" type="Node" parent="."]
