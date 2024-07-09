@@ -10,6 +10,8 @@ height = 102.0
 [node name="Enemy" type="Area2D"]
 position = Vector2(0, 2)
 rotation = -1.5708
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_1nmby")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,3 +22,5 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4.37114e-08, -1)
 shape = SubResource("CapsuleShape2D_cymm1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
