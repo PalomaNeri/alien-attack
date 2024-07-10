@@ -8,6 +8,8 @@ var laser_scene = preload("res://scenes/laser.tscn")
 
 @onready var laser_container = $LaserContainer
 
+@onready var laser_shot_sound = $LaserShotSound
+
 func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
@@ -29,17 +31,16 @@ func _physics_process(delta):
 	var screen_size = get_viewport_rect().size
 
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
-	#print(global_position) # this is the position of the node that the script (player) is attached to
 
 func shoot():
 	var laser_instance = laser_scene.instantiate()
 	laser_container.add_child(laser_instance)
 	laser_instance.global_position = global_position
 	laser_instance.global_position.x += 65
+	laser_shot_sound.play()
 
 func take_damage():
 	emit_signal("took_damage")
 
 func die():
 	queue_free()
-	

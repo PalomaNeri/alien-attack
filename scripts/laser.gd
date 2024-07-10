@@ -10,5 +10,4 @@ func _on_visible_notifier_screen_exited():
 
 func _on_area_entered(area):
 	queue_free()
-	area.die()           	#function added in enemy script 
-			#area.queue_free() would be simpler, I have plans for die function tho
+	area.die()

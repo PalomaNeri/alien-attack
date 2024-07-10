@@ -1,7 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://b45bmihox8yo2"]
+[gd_scene load_steps=10 format=3 uid="uid://b45bmihox8yo2"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_0er46"]
 [ext_resource type="Texture2D" uid="uid://dmwhyalvrph1p" path="res://assets/textures/player_ship.png" id="1_skmvw"]
+[ext_resource type="AudioStream" uid="uid://dpuihcsexpv53" path="res://assets/audio/sfx_laser2.wav" id="3_ddoro"]
+
+[sub_resource type="Gradient" id="Gradient_slbru"]
+offsets = PackedFloat32Array(0, 0.491803, 0.983607)
+colors = PackedColorArray(1, 0.815686, 0, 0, 1, 0.45, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_avqru"]
+gradient = SubResource("Gradient_slbru")
+
+[sub_resource type="Curve" id="Curve_2y5lj"]
+_data = [Vector2(0, 0.494505), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gug7j"]
+curve = SubResource("Curve_2y5lj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t70ma"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 15, 1)
+spread = 30.0
+initial_velocity_min = -200.0
+initial_velocity_max = -200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_gug7j")
+color_ramp = SubResource("GradientTexture1D_avqru")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h2nbl"]
 radius = 27.0
@@ -10,6 +39,12 @@ height = 106.0
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_0er46")
+
+[node name="FlameParticleEffect" type="GPUParticles2D" parent="."]
+position = Vector2(-40, 0)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_t70ma")
+lifetime = 0.3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
@@ -21,3 +56,8 @@ texture = ExtResource("1_skmvw")
 shape = SubResource("CapsuleShape2D_h2nbl")
 
 [node name="LaserContainer" type="Node" parent="."]
+
+[node name="LaserShotSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ddoro")
+volume_db = -11.242
+pitch_scale = 2.81
